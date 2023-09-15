@@ -8,7 +8,16 @@ function cart(db, printProducts){
     const countDOM = document.querySelector('.cart__count--item')
     const totalDOM = document.querySelector('.cart__total--item')
     const checkoutDOM = document.querySelector('.btn--buy')
+    const modal = document.querySelector('.modal')
 
+    checkoutDOM.addEventListener('click', () => {
+        if (cart.length === 0) {
+            mostrarModalCarritoVacio();
+            return
+        } else {
+            showCartGracias()
+        }
+    });
 
     function printCart(){
         let htmlCart = ''
@@ -60,23 +69,14 @@ function cart(db, printProducts){
 
     function addToCart(id, qty = 1){
         const itemFinded = cart.find(i => i.id ===id)
-        const productFind = db.find(p => p.id === id)
         if(itemFinded){
-            if (productFind.quantity > 0){
-                if(validarStock(id, (qty + itemFinded.qty))){
-                    itemFinded.qty +=qty
-                    console.log('estoy en cero') 
-                }else{
-                    return window.alert('Producto agotado')
-                }
+            if(validarStock(id, (qty + itemFinded.qty))){
+                itemFinded.qty +=qty 
             }else{
-                window.alert('pro agotaddo')
-            }
-           
+                return window.alert('Producto agotado')
+            }                    
         }else {
-                console.log('estoy en cero else')
-                cart.push({id, qty})
-            
+            cart.push({id, qty})           
         }
         printCart()
     }
@@ -121,11 +121,6 @@ function cart(db, printProducts){
             const productFind = db.find(p => p.id === item.id)
             productFind.quantity -= item.qty 
         }
-        if(cart.length ===0){
-            window.alert('No hay productos que comprar')
-        }else{
-            window.alert('Gracias por su compra')
-        }
         cart = []
         printCart()
         printProducts()
@@ -138,6 +133,10 @@ function cart(db, printProducts){
         if(event.target.closest('.add--to--cart')){
             const id = +event.target.closest('.add--to--cart').dataset.id
             addToCart(id)
+            if(!validarStock(id, 1)){
+                removeFromCart(id,1)
+                window.alert('producto agotado')
+            }
         }
 
     })
@@ -166,16 +165,26 @@ function cart(db, printProducts){
         const productoEncontrado = db.find(producto => producto.id === id)
         return productoEncontrado.quantity >= qty
     }
-
-    function validarQtyDB(){
-        produsctsDOM.addEventListener('click', function(event){
-            if(event.target.closest('.add--to--cart')){
-                const id = +event.target.closest('.add--to--cart').dataset.id
-                const productFind = db.find(p => p.id === id)
-                return productFind.quantity > 0 
-            }
+    function mostrarModalCarritoVacio() {
+        const modalCarritoVacio = document.getElementById('modal--container');
+        modalCarritoVacio.classList.add('show--modal--cart');
+        setTimeout(() => {
+            modalCarritoVacio.classList.remove('show--modal--cart');
+        }, 2000);
+    }
     
-        })
+    function ocultarModalCarritoVacio() {
+        const modalCarritoVacio = document.getElementById('modal--container');
+        modalCarritoVacio.classList.remove('show--modal--cart');
+    }
+
+    function showCartGracias(){
+            const textGracias = document.querySelector('.container__gracias')
+            textGracias.classList.remove('show--modal--cart--hidden')
+            setTimeout(() => {
+                textGracias.classList.add('show--modal--cart--hidden')
+            }, 2000);
+        
     }
 
 }
