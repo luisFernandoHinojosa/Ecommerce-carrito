@@ -61,6 +61,9 @@
     --bg-link:hsl(0, 0%, 100%);
     --color-link:hsl(197, 100%, 51%);
 
+    /*Header color background*/
+    --header-bg-color:#9e9e00;
+
 }
 
 @media(min-width:992px){
@@ -118,6 +121,7 @@ body.dark{
 --color-cart-border:hsl(198, 100%, 50%);
 --title-color-cart:hsl(65, 97%, 49%);
 --color-link:hsl(320, 100%, 51%);
+--header-bg-color:hsl(240, 33%, 21%);
 }
 
 a{
@@ -229,7 +233,7 @@ button{
     bottom: 0;
     left: 0;
     width: 100%;
-    background-color: var(--bg-color);
+    background-color: var(--header-bg-color);
     z-index: var(--z-fixed);
     box-shadow: 0 0 10px hsla(0, 0%, 0%, 10%);
     
@@ -245,12 +249,21 @@ button{
 .nav__logo{
     display: flex;
     align-items: center;
+    
 }
 
 .logo--icon{
     width: 3rem;
     height: 3rem;
     color: var(--primary-color);
+}
+
+.bx.moon::before{
+    content: "\f31c";
+}
+
+.bx.sun::before{
+    content: "\f185";
 }
 
 @media (max-width: 768px){
@@ -363,6 +376,7 @@ button{
     border-radius: 25px;
     overflow: hidden;
     border: 2px solid var(--color-tarjetas-border);
+    background-color: var(--bg-color);
 }
 
 .product__image{
@@ -383,7 +397,6 @@ button{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     align-items: center;
-    background-color: var(--bg-color);
     padding: var(--sp-1-5);
     min-height: 109px;
 }
@@ -623,6 +636,7 @@ button{
     background-color: var(--card-color);
     padding: var(--sp-1);
     row-gap: var(--sp-1);
+    background-color: red;
 }
 
 .cart__count{
@@ -639,8 +653,9 @@ button{
     grid-column: span 4;
     background-color: rgb(177, 3, 252);
     color: var(--bg-color);
-    padding: var(--sp-1);
+    padding: .80rem 0;
     transition: all .3s ease;
+    font-weight: 700;
     border-radius: 20px;
 
 }
