@@ -63,6 +63,7 @@
 
     /*Header color background*/
     --header-bg-color:#9e9e00;
+    --nav-menu-bg:hsl(277, 45%, 84%);
 
 }
 
@@ -110,7 +111,7 @@ body{
 }
 
 body.dark{
---body-color:hsl(240, 21%, 17%);  
+--body-color:hsl(240, 26%, 11%);  
 --text-color:hsl(195, 100%, 99%);
 --bg-color: hsl(240, 33%, 21%);  
 --title-color:hsl(195, 100%, 99%);
@@ -121,7 +122,9 @@ body.dark{
 --color-cart-border:hsl(198, 100%, 50%);
 --title-color-cart:hsl(65, 97%, 49%);
 --color-link:hsl(320, 100%, 51%);
---header-bg-color:hsl(240, 33%, 21%);
+--header-bg-color:hsl(240, 26%, 11%);
+--nav-menu-bg:hsl(240, 21%, 17%);
+/*240, 21%, 17%*/
 }
 
 a{
@@ -274,7 +277,8 @@ button{
         width: 100%;
         height: calc(max-content - var(--header-height));
         padding: var(--sp-3) 0 var(--sp-2);
-        background-color: var(--bg-color);
+        background-color: var(--nav-menu-bg);
+        
         z-index: var(--z-fixed);
         transition: left .5s ease-in-out;
         
@@ -448,7 +452,6 @@ button{
 /*Footer*/
 .footer__section{
     background-color: var(--card-color);
-
 }
 
 .footer__container, .footer__top{
@@ -463,8 +466,24 @@ button{
     gap: 30px;
 }
 
-.footer__left{
-    
+@media(max-width:768px){
+    .footer__top{
+        display: flex;
+        flex-direction: column;
+        justify-content: baseline;
+        gap: 30px;
+    }
+
+    .footer__container, .footer__top{
+        display: flex;
+        flex-direction: column;
+        row-gap: var(--sp-1-5);
+    }
+    .footer__social{
+        display: flex;
+        justify-content: center;
+        gap: var(--sp-1-5);
+    }
 }
 
 .footer__title{
@@ -518,7 +537,6 @@ button{
     position: fixed;
     bottom: var(--header-height);
     right: -100%;
-    max-width: 375px;
     width: 100%;
     height: calc(100vh - var(--header-height));
     background-color: var(--bg-color);
@@ -526,7 +544,9 @@ button{
     transition:right .5s ease-in-out;
     border-radius: 10px;
     border: 3px solid var(--color-cart-border);
+    
 }
+
 
 /*Show cart*/
 .show--cart{
@@ -583,8 +603,8 @@ button{
 
 .article__image{
     position: relative;
-    width: 80px;
-    height: 80px;
+    /*width: 80px;
+    height: 80px;*/
     overflow: hidden;
     border: 1px solid var(--card-color);
     align-self: center;
@@ -634,9 +654,9 @@ button{
     grid-template-rows: repeat(2, 1fr);
     align-items: center;
     background-color: var(--card-color);
-    padding: var(--sp-1);
+    padding: 1rem;
     row-gap: var(--sp-1);
-    background-color: red;
+    border-radius: 8px;
 }
 
 .cart__count{
@@ -671,6 +691,7 @@ button{
     .header{
         top: 0;
         bottom: unset;
+
     }
 
     .nav__list{
@@ -694,6 +715,7 @@ button{
 
     .cart{
         top: var(--header-height);
+        width: 400px;
     }
 }
 
